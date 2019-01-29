@@ -1,1 +1,1 @@
-Sitemap: /sitemap.xml
+Sitemap: www.elusivecode.net/sitemap.xml
