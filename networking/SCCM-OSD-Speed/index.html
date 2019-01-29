@@ -18,7 +18,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Matt Parker">
 <meta property="og:title" content="Speeding up System Center OS Deployment">
-<meta property="og:url" content="http://localhost:4000/networking/SCCM-OSD-Speed/">
+<meta property="og:url" content="/networking/SCCM-OSD-Speed/">
 
 
   <meta property="og:description" content="    Some of the goals of the exercise was to add some automation to a task sequence and also speed up the results so that to not hinder the technicians that do the deployments.">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@MLParker1">
   <meta name="twitter:title" content="Speeding up System Center OS Deployment">
   <meta name="twitter:description" content="    Some of the goals of the exercise was to add some automation to a task sequence and also speed up the results so that to not hinder the technicians that do the deployments.">
-  <meta name="twitter:url" content="http://localhost:4000/networking/SCCM-OSD-Speed/">
+  <meta name="twitter:url" content="/networking/SCCM-OSD-Speed/">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/networking/SCCM-OSD-Speed/">
+<link rel="canonical" href="/networking/SCCM-OSD-Speed/">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Matt Parker",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>
@@ -183,7 +183,7 @@
       
         
           
-            <li><a href="mailto:mlparker1@gmail.com.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+            <li><a href="mailto:mlparker1@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
           
         
           
@@ -281,14 +281,38 @@
 
 <p>    We tested through multiple orders to try to minimize the performance hit, and to give the technicians the best experience as relates to time, and after deployment slowness. Through testing, We noticed Bit9 did its initialization as a foreground type task, taking all free disk cycles without sharing. Free space wipe did seem to background its process a lot, it did not cause a major slowdown, so the techs could continue user setup while it was processing if needed.</p>
 
-<p>Below is a chart of timings.
-| Options | Time |
-|——————————|—————-|
-| No wipe no bit9 | 45 Minutes |
-| Wipe, No Bit9 | 1:45 |
-| No Wipe with Bit9 | 1:07 |
-| Wipe, Bit9  | 2:26 |
-| Bit9, Auto wait, wipe at end | 1:00 to usable |</p>
+<p>Below is a chart of timings.</p>
+
+<table class="mbtablestyle">
+  <thead>
+    <tr>
+      <th>Options</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>No wipe no bit9</td>
+      <td>45 Minutes</td>
+    </tr>
+    <tr>
+      <td>Wipe, No Bit9</td>
+      <td>1:45</td>
+    </tr>
+    <tr>
+      <td>No Wipe with Bit9</td>
+      <td>1:07</td>
+    </tr>
+    <tr>
+      <td>Wipe, Bit9</td>
+      <td>2:26</td>
+    </tr>
+    <tr>
+      <td>Bit9, Auto wait, wipe at end</td>
+      <td>1:00 to usable</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>    The Auto-wait was a replacement, the original idea was to time bit9 on both flash and hdd and set up an if type statement to do approximate timings, but that would case some inconsistencies on the wait, and despite tuning we wouldn’t ever be able to get it “just right”. I dug into Bit9 to see if there was some way to call a status from the machine itself so it would be available during the task sequence. There was a CLI tool that is provided that gave insight, so I wrote a Powershell script that would call it in a loop and continue until complete.</p>
 
