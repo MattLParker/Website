@@ -9,28 +9,28 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Internal Nat Design - Matt Parker</title>
-<meta name="description" content="    Time has come where a service that we run is being moved to a remote (read not ours) datacenter. We do not know all the internal workings of it as it is a Mainframe Z9, in which we no longer have any programmers on staff. We are having the services brought up on some one else’s cloud due to not being able to properly provide disaster recovery.">
+<!-- begin _includes/seo.html --><title>Speeding up System Center OS Deployment - Matt Parker</title>
+<meta name="description" content="    Some of the goals of the exercise was to add some automation to a task sequence and also speed up the results so that to not hinder the technicians that do the deployments.">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Matt Parker">
-<meta property="og:title" content="Internal Nat Design">
-<meta property="og:url" content="www.elusivecode.net/networking/Internal-Nat-Design/">
+<meta property="og:title" content="Speeding up System Center OS Deployment">
+<meta property="og:url" content="www.elusivecode.net/.well-known/security.txt">
 
 
-  <meta property="og:description" content="    Time has come where a service that we run is being moved to a remote (read not ours) datacenter. We do not know all the internal workings of it as it is a Mainframe Z9, in which we no longer have any programmers on staff. We are having the services brought up on some one else’s cloud due to not being able to properly provide disaster recovery.">
+  <meta property="og:description" content="    Some of the goals of the exercise was to add some automation to a task sequence and also speed up the results so that to not hinder the technicians that do the deployments.">
 
 
 
 
 
   <meta name="twitter:site" content="@MLParker1">
-  <meta name="twitter:title" content="Internal Nat Design">
-  <meta name="twitter:description" content="    Time has come where a service that we run is being moved to a remote (read not ours) datacenter. We do not know all the internal workings of it as it is a Mainframe Z9, in which we no longer have any programmers on staff. We are having the services brought up on some one else’s cloud due to not being able to properly provide disaster recovery.">
-  <meta name="twitter:url" content="www.elusivecode.net/networking/Internal-Nat-Design/">
+  <meta name="twitter:title" content="Speeding up System Center OS Deployment">
+  <meta name="twitter:description" content="    Some of the goals of the exercise was to add some automation to a task sequence and also speed up the results so that to not hinder the technicians that do the deployments.">
+  <meta name="twitter:url" content="www.elusivecode.net/.well-known/security.txt">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="www.elusivecode.net/networking/Internal-Nat-Design/">
+<link rel="canonical" href="www.elusivecode.net/.well-known/security.txt">
 
 
 
@@ -271,20 +271,83 @@
 
   <div class="archive">
     
-      <h1 id="page-title" class="page__title">Internal Nat Design</h1>
+      <h1 id="page-title" class="page__title">Speeding up System Center OS Deployment</h1>
     
-    <p>    Time has come where a service that we run is being moved to a remote (read not ours) datacenter. We do not know all the internal workings of it as it is a Mainframe Z9, in which we no longer have any programmers on staff. We are having the services brought up on some one else’s cloud due to not being able to properly provide disaster recovery.</p>
+    <p>    Some of the goals of the exercise was to add some automation to a task sequence and also speed up the results so that to not hinder the technicians that do the deployments.</p>
 
-<p>    One of the many challenges that has come up during this adventure is that since we do not have any programmers, and the last time we did was when all of the networking staff thought static routes and /20’s were the best thing since sliced bread. One of the things that we do know is all of the jobs that the mainframe uses back and forth is hard-coded IP addresses for all of the external to mainframe imports and exports. Since the mainframe is on one of the last remaining /20’s in which there are also several servers and clients on this subnet, we had to implement a way that we can use it’s current IP, with the cloud connection.</p>
+<p>    We wanted to add bit-locker encryption to the task sequence, with full disk encryption to add security to reused disks for re-images. SCCM support for FVE (Full Volume encryption) was just added in 1806. Through testing it appears that the implementation is buggy at best, anytime we did a sequence with FVE turned on, when tested on machines with TPM 1.2 it would fail. Machines that were running TPM 2.0 would sometimes work fine and sometimes would not. Through testing we concluded that doing the used space encryption as before and add a step of “Manage-bde -w C:” would give us the same end benefit with one caveat, manage-bde -status will remain saying used space encryption. This is despite that a full disk wipe does occur.</p>
 
-<p>    First thing that was established is having an IPsec tunnel built to our cloud mainframe. That I will not bore with the details of since it is a standard tunnel ASA to ASA. Testing by our operators have been going with very few problems to speak of relatively. Next the thought of how to reprogram a ton of Mainframe jobs, or how to reuse the same IP address for the cloud mainframe.</p>
+<p>    We also wanted to implement our Bit9 Carbon black agent in to the sequence. Carbon black goes through an initialization process where it catalogs all files on the system. This in a combination of FVE and antivirus caused major slow down to the image. Testing was done on a slower in production desktop, an I7-4790, 8 gigs of ram, and a 7200 RPM platter drive.</p>
 
-<p>    Some thoughts of being able to NAT the address came up, but how, on a network that is currently in place as a /20.</p>
+<p>    We tested through multiple orders to try to minimize the performance hit, and to give the technicians the best experience as relates to time, and after deployment slowness. Through testing, We noticed Bit9 did its initialization as a foreground type task, taking all free disk cycles without sharing. Free space wipe did seem to background its process a lot, it did not cause a major slowdown, so the techs could continue user setup while it was processing if needed.</p>
 
-<p>    For the sake of public we are going to use 1.1.1.0/20 as the network in question, and 1.1.1.2 as the mainframe internal, and 11.11.11.11 as the cloud mainframe.
-To start, we placed on our Layer 3 switch that is closest a static route of 1.1.1.2/32 pointing it to the ASA. We run EIGRP and have static redistribute enabled on the LAN EIGRP.</p>
+<p>Below is a chart of timings.</p>
 
-<p>    Next since we have multiple WAN routes a static route was placed in the ASA pointing 1.1.1.2/32 to the correct WAN that the tunnel was built on. Next we did a NAT for 1.1.1.2 &lt;&gt;-&lt;&gt;11.11.11.11 and we seem to have a working NAT. Pings to 1.1.1.2 work fine from most of the network, but alas, it does not work from the 1.1.1.0/20 network. Which we assumed would not work as it would never make it to be routed, as it is a layer two address. Since the Layer3 in this case is a NX-OS device, I was able to set on the interface vlan, IP Proxy-arp. A command which the switch will relay the learned IP-Mac combinations from its own arp tables.</p>
+<table class="mbtablestyle">
+  <thead>
+    <tr>
+      <th>Options</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>No wipe no bit9</td>
+      <td>45 Minutes</td>
+    </tr>
+    <tr>
+      <td>Wipe, No Bit9</td>
+      <td>1:45</td>
+    </tr>
+    <tr>
+      <td>No Wipe with Bit9</td>
+      <td>1:07</td>
+    </tr>
+    <tr>
+      <td>Wipe, Bit9</td>
+      <td>2:26</td>
+    </tr>
+    <tr>
+      <td>Bit9, Auto wait, wipe at end</td>
+      <td>1:00 to usable</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>    The Auto-wait was a replacement, the original idea was to time bit9 on both flash and hdd and set up an if type statement to do approximate timings, but that would case some inconsistencies on the wait, and despite tuning we wouldn’t ever be able to get it “just right”. I dug into Bit9 to see if there was some way to call a status from the machine itself so it would be available during the task sequence. There was a CLI tool that is provided that gave insight, so I wrote a Powershell script that would call it in a loop and continue until complete.</p>
+
+<pre><code class="language-Powershell">    &lt;#
+.SYNOPSIS
+A script to run immediately after deploying the Bit9 Carbon Black Protect Agent during OS deployment 
+and wait for it to complete the initial cache before proceeding.
+#&gt;
+
+
+Write-host (get-date)
+$start = (get-date)
+#Wait to make sure Bit9 Started
+start-sleep -seconds 120
+
+do {
+    #Check for timeout
+    $tolate = ((get-date) -gt ($start.AddMinutes(40)))
+    #break if time is hit
+    if ($tolate){Break}
+    Write-Host "Sleeping 30 Seconds"
+    Start-sleep -seconds 30
+    #get status
+    $status =  &amp; 'C:\Program Files (x86)\Bit9\Parity Agent\DasCLI.exe' status
+    #match if completed
+    $Check = $status -match "Initialized"
+
+} While ($null -like $check)
+
+Write-host (get-date)
+Write-host "Finished"
+</code></pre>
+<p>https://github.com/MattLParker/Powershell/blob/master/Status-bit9.ps1</p>
+
+<p>    As you can see we were able to save some considerable time by adjusting the order in which things are completed.</p>
 
 
 <ul class="taxonomy__index">
@@ -313,7 +376,7 @@ To start, we placed on our Layer 3 switch that is closest a static route of 1.1.
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/networking/SCCM-OSD-Speed/" rel="permalink">Speeding up System Center OS Deployment
+        <a href="/.well-known/security.txt" rel="permalink">Speeding up System Center OS Deployment
 </a>
       
     </h2>
@@ -340,7 +403,7 @@ To start, we placed on our Layer 3 switch that is closest a static route of 1.1.
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/networking/Skype-Disconnect/" rel="permalink">Skype for Business Desktop sharing disconnect.
+        <a href="/.well-known/security.txt" rel="permalink">Skype for Business Desktop sharing disconnect.
 </a>
       
     </h2>
@@ -367,7 +430,7 @@ To start, we placed on our Layer 3 switch that is closest a static route of 1.1.
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/networking/Internal-Nat-Design/" rel="permalink">Internal Nat Design
+        <a href="/.well-known/security.txt" rel="permalink">Internal Nat Design
 </a>
       
     </h2>
@@ -394,7 +457,7 @@ To start, we placed on our Layer 3 switch that is closest a static route of 1.1.
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/networking/DNS-Forwarders/" rel="permalink">DNS Forwarders
+        <a href="/.well-known/security.txt" rel="permalink">DNS Forwarders
 </a>
       
     </h2>
