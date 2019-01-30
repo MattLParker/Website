@@ -11,7 +11,7 @@
 
 
 
-    <title>Doing IT</title>
+    <title>DNS Forwarders</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -36,19 +36,19 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Ramblings of a Sys Admin" />
     <link rel="shortcut icon" href="http://localhost:4000/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="http://localhost:4000/" />
+    <link rel="canonical" href="http://localhost:4000/DNS-Forwarders" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="Doing IT" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Doing IT" />
+    <meta property="og:title" content="DNS Forwarders" />
     <meta property="og:description" content="Ramblings of a Sys Admin" />
-    <meta property="og:url" content="http://localhost:4000/" />
+    <meta property="og:url" content="http://localhost:4000/DNS-Forwarders" />
     <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover.jpg" />
     <meta property="article:publisher" content="https://www.facebook.com/MLParker1" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Doing IT" />
+    <meta name="twitter:title" content="DNS Forwarders" />
     <meta name="twitter:description" content="Ramblings of a Sys Admin" />
     <meta name="twitter:url" content="http://localhost:4000/" />
     <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover.jpg" />
@@ -68,7 +68,7 @@
         "name": "Doing IT",
         "logo": "http://localhost:4000/"
     },
-    "url": "http://localhost:4000/",
+    "url": "http://localhost:4000/DNS-Forwarders",
     "image": {
         "@type": "ImageObject",
         "url": "http://localhost:4000/assets/images/blog-cover.jpg",
@@ -77,7 +77,7 @@
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "http://localhost:4000/"
+        "@id": "http://localhost:4000/DNS-Forwarders"
     },
     "description": "Ramblings of a Sys Admin"
 }
@@ -92,7 +92,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Doing IT" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="DNS Forwarders" href="/feed.xml" />
 
 
 </head>
@@ -100,30 +100,20 @@
 
     <div class="site-wrapper">
         <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
-        <!-- < default -->
+        <!-- default -->
+
 <!-- The tag above means: insert everything in this file
 into the {body} of the default.hbs template -->
 
-<!-- The big featured header, it uses blog cover image as a BG if available -->
-<header class="site-header outer " style="background-image:  url(/assets/images/blog-cover.jpg) ">
+<header class="site-header outer">
     <div class="inner">
-        <div class="site-header-content">
-            <h1 class="site-title">
-                
-                    Doing IT
-                
-            </h1>
-            <h2 class="site-description">Ramblings of a Sys Admin</h2>
-        </div>
         <nav class="site-nav">
     <div class="site-nav-left">
         
+            
+                <a class="site-nav-logo" href="http://localhost:4000/">Doing IT</a>
+            
         
-            <ul class="nav" role="menu">
-    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
-    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
-</ul>
-
         
     </div>
     <div class="site-nav-right">
@@ -144,60 +134,81 @@ into the {body} of the default.hbs template -->
     </div>
 </header>
 
-<!-- The main content area -->
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
 <main id="site-main" class="site-main outer" role="main">
     <div class="inner">
 
-        <div class="post-feed">
-            <!-- The tag below includes the markup for each post - partials/post-card.hbs -->
+        <article class="post-full  no-image">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="29 January 2019">29 January 2019</time>
+                    
+                </section>
+                <h1 class="post-full-title">DNS Forwarders</h1>
+            </header>
+
             
-    <article class="post-card home-template no-image">
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/SCCM-OSD-Speed">
-                <header class="post-card-header">
-                    
 
-                    <h2 class="post-card-title">Speeding up System Center OS Deployment</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p>    Some of the goals of the exercise was to add some automation to a task sequence and also speed up the results so that to not hinder the technicians that do the deployments.</p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>    When setting up or maintaining multiple AD domains, due to legacy environments. It is not wise to point the DNS servers of the new domain to the old servers.</p>
+
+<p>    I recently discovered this done on a 1700 user AD environment. There was a constant slow to resolve DNS when browsing the web. The internet connectivity on location was a 500/500 fiber with modern firewalls. Needless to say it was not fault of the internet connection. While troubleshooting the slowness issue the error that was consistent was NXdomain. I discovered that some one previous has set the forwarders to the old AD environment’s domain controllers, of which only one was still operational the rest had been shut down as the domain is being decommissioned. The previous had actually set up the new network to poll the old network which in turn polled the internet. After making the approved changes to point outbound instead of old, At least it was discovered why it was done, intermittent connectivity to servers in the old forest. Which was a result of only one of the new AD/DNS servers having the secondary zone and no conditional forwarders in place. Why put a bandage on a broken leg gets me but trust nothing, especially DNS. So remember, It is always DNS.</p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
                 
                     
                 
+                <!-- /author  -->
             </footer>
-        </div>
-    </article>
 
-    <article class="post-card home-template no-image">
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/Skype-Disconnect">
-                <header class="post-card-header">
-                    
-
-                    <h2 class="post-card-title">Skype for Business Desktop sharing disconnect.</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p>    During testing of using Skype for business for Audio/Video conferencing all was going well, until enabling desktop sharing. When ever anyone in the group (all on LAN to each other) we would start</p>
-                    
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = 'http://localhost:4000/';
+                            this.page.identifier = 'Doing IT';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://elusivecodenet.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
                 </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                
-            </footer>
-        </div>
-    </article>
+            
 
-    <article class="post-card home-template no-image">
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card  no-image">
         
         <div class="post-card-content">
             <a class="post-card-content-link" href="/Internal-Nat-Design">
@@ -208,7 +219,7 @@ into the {body} of the default.hbs template -->
                 </header>
                 <section class="post-card-excerpt">
                     
-                        <p>    Time has come where a service that we run is being moved to a remote (read not ours) datacenter. We do not know all the internal workings of it as it is a</p>
+                        <p></p>
                     
                 </section>
             </a>
@@ -220,36 +231,54 @@ into the {body} of the default.hbs template -->
         </div>
     </article>
 
-    <article class="post-card home-template no-image">
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/DNS-Forwarders">
-                <header class="post-card-header">
-                    
+            
 
-                    <h2 class="post-card-title">DNS Forwarders</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p>    When setting up or maintaining multiple AD domains, due to legacy environments. It is not wise to point the DNS servers of the new domain to the old servers.
-
-</p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                
-            </footer>
-        </div>
-    </article>
-
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
 
         </div>
-
     </div>
-</main>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="http://localhost:4000/">
+            
+                <img src="/assets/images/favicon.png" alt="Doing IT icon" />
+            
+            <span>Doing IT</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">DNS Forwarders</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=DNS+Forwarders&amp;url=DNS-Forwarders"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=DNS-Forwarders"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
 
 
         <!-- Previous/next page links - displayed on every page -->
@@ -294,7 +323,7 @@ into the {body} of the default.hbs template -->
     <!-- Paginator increased to "infinit" in _config.yml -->
     <!-- if paginator.posts  -->
     <!-- <script>
-        var maxPages = parseInt('1');
+        var maxPages = parseInt('');
     </script>
     <script src="/assets/js/infinitescroll.js"></script> -->
     <!-- /endif -->
