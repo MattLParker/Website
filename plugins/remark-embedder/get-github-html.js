@@ -24,9 +24,9 @@ function getUrl(string) {
 }
 
 function getGithubHTML(string) {
-  const matcher = string.match(/https:\/\/w?w?w?.?github.com\/(.*?)\/([^/]*)\/?.*$/);
+  const matcher = string.match(/(https:\/\/w?w?w?.?github.com\/(.*?)\/([^/]*)\/?.*$)/);
   if (matcher) {
-    return `<div class="gh-card-wrap"><div class="github-card" data-user="${matcher[1]}" data-repo="${matcher[2]}"><span class="loading"/></div></div>`;
+    return `<div class="gh-card-wrap"><div class="github-card" data-user="${matcher[2]}" data-repo="${matcher[3]}" data-url="${matcher[1]}"> <span class="loading"/></div></div>`;
   }
   return 'not matched';
 }
