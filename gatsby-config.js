@@ -64,7 +64,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Matt Parker`,
-        short_name: `MP`,
+        short_name: `Matt`,
         start_url: `/`,
         background_color: `#151515`,
         theme_color: `#d7d7d7`,
@@ -130,7 +130,7 @@ module.exports = {
               }
             `,
             output: "/rss.xml",
-            title: "Matt RSS Feed",
+            title: "Matt's RSS Feed",
           },
         ],
       },
