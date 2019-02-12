@@ -4,11 +4,11 @@ export const onRouteUpdate = () => {
   // Load JS required for github cards
   if (document.querySelector('.github-card') !== null) {
     const cards = document.querySelectorAll('.github-card');
+    console.log(cards);
     for (let card of cards) {
-      const username = card.dataset.user;
-      const repo = card.dataset.repo;
+      const url = 'https://api.github.com/repos/' + card.dataset.user + '/' + card.dataset.repo
 
-      fetch(`https://api.github.com/repos/${username}/${repo}`)
+      fetch(url)
         .then(res => res.json())
         .then(data => {
           card.innerHTML = `

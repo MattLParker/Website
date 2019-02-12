@@ -14,7 +14,7 @@ class WritingsIndex extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO frontmatter={{ title: 'Writings', slug: '/writings' }} />
+        <SEO frontmatter={{ title: 'Matt Parker', slug: '/Blog' }} />
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug;
           return (
