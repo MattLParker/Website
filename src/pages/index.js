@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import { StyledIndex } from '../components/styles/index-page';
 import SEO from '../components/SEO';
 import Footer from '../components/Footer';
+import bg from "../../static/blog-cover.jpg"
 
 class BlogIndex extends React.Component {
   render() {
@@ -16,7 +17,8 @@ class BlogIndex extends React.Component {
     return (
       <React.Fragment>
         <StyledIndex>
-          <Layout location={this.props.location} title={siteTitle}>
+          {/* <div style="Centered"><img src={bg}></img></div> */}
+            <Layout location={this.props.location} title={siteTitle}>
             <SEO />
             <p>Ramblings of a SysAdmin.</p>
             <nav>
@@ -27,7 +29,8 @@ class BlogIndex extends React.Component {
                 <Link to="/aboutme">About-Me</Link>
               </p>
             </nav>
-          </Layout>
+            
+            </Layout>
         </StyledIndex>
         <Footer />
       </React.Fragment>
