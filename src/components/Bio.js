@@ -25,13 +25,13 @@ class Bio extends React.Component {
           }}
         />
         <p style={{ color: colors.green }}>
-          By <strong>Matt Parker</strong>{' '}
-          <a
+          By <strong><a href="https://www.elusivecode.net/aboutme">Matt Parker</a></strong>{' '}
+          {/* <a
             style={{ color: colors.green }}
             href="https://www.twitter.com/mlparker1"
             target="_blank"
           >
-          </a>
+          </a> */}
         </p>
       </div>
     );

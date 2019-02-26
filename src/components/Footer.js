@@ -14,11 +14,11 @@ const StyledFooter = styled.footer`
 const Footer = () => (
   <StyledFooter>
     <p>
-      Copyright 2019.
+      Theme design is <u><a href="https://github.com/MattLParker/Website">Open Source</a></u>. Blog content copyright 2019.
       <br />
-      <a href="mailto:MLParker1+website@gmail.com">mail</a> |{' '}
-      <a href="https://www.twitter.com/MLParker1">twitter</a> |{' '}
-      <a href="https://www.elusivecode.net/rss.xml">rss</a>
+      <u><a href="https://www.elusivecode.net/blog">Blog</a></u> |{' '}
+      <u><a href="https://www.elusivecode.net/aboutme">About-Me</a></u> |{' '}
+      <u><a href="https://www.elusivecode.net/rss.xml">rss</a></u>
     </p>
   </StyledFooter>
 );
