@@ -1,9 +1,9 @@
 ---
 title:  "Netwrix Audit Scripting"
 date:   2018-03-12
-tags: "Netwrix","Audit","Security"
+tags: "Security"
 type: 'artical'
-published: false
+published: true
 
 ---
 &nbsp;&nbsp;&nbsp;&nbsp;I have been overhauling the auditing using Netwrix Auditor. There are a lot of changes that have to be made to a corporate environment to accommodate all of the changes that are to be audited. Several of the things can be done via group policy. The group policies are documented well enough by Netwrix. The part that came to a quick slow down when Netwrix requires a change to the audit permissions for HKEY_LOCAL_MACHINE\SOFTWARE, HKEY_LOCAL_MACHINE\SYSTEM, and HKEY_USERS\.DEFAULT setting "Set Value, Create Subkey, Delete, Write DAC, Write Owner". 
@@ -53,4 +53,6 @@ foreach ($server in $servers) {
 
 }
 ```
+https://github.com/MattLParker/Powershell/blob/master/Status-bit9.ps1
+
 &nbsp;&nbsp;&nbsp;&nbsp;As you can see it really would not have been especially hard for them to provide a method, as they provide other scripts as part of the installation of the management server.
