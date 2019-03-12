@@ -2,7 +2,7 @@
 title:  "Internal Nat Design"
 date:   2018-01-29
 tags: Networking
-type: 'artical'
+type: 'blog'
 published: true
 
 ---

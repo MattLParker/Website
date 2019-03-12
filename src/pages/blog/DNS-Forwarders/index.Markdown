@@ -2,7 +2,7 @@
 title:  "DNS Forwarders"
 date:   2018-04-15
 tags: Networking
-type: 'artical'
+type: 'blog'
 published: true
 description: 'When setting up or maintaining multiple AD domains, due to legacy environments. It is not wise to point the DNS servers of the new domain to the old servers.'
 
