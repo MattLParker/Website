@@ -1,6 +1,6 @@
 ---
 title:  "Netwrix Audit Scripting"
-date:   2018-03-12
+date:   2019-03-12
 tags: "Security"
 type: 'artical'
 published: true
