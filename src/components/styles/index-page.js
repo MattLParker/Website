@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import { rhythm, scale } from '../../utils/typography';
 import { colors } from '../../utils/theme';
+import { bg } from '../../../static/blog-cover.jpg';
 
 export const StyledIndex = styled.div`
   display: flex;
   height: 100vh;
   align-items: center;
   justify-content: center;
+  background-image : ${bg};
 
   h1 {
     ${scale(1.5)}

@@ -9,7 +9,6 @@ import bg from "../../../static/blog-cover.jpg";
 export const GlobalStyle = createGlobalStyle`
   body {
     background: ${colors.background};
-    background-image : "../../../static/blog-cover.jpg";
     color: ${colors.text};
   }
 
