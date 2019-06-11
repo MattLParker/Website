@@ -18,7 +18,7 @@ class BlogIndex extends React.Component {
         <StyledIndex>
             <Layout location={this.props.location} title={siteTitle}>
             <SEO />
-            <p>Ramblings of a SysAdmin.</p>
+            <p>Ramblings of a Senior Security Engineer.</p>
             <nav>
               <p>
                 <Link to="/blog">Blog</Link>

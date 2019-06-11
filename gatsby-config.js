@@ -5,7 +5,7 @@ module.exports = {
     title: 'Matt Parker',
     author: 'Matt Parker',
     image: 'https://www.elusivecode.net/avatar.png',
-    description: 'Ramblings of a Sys Admin.',
+    description: 'Ramblings of a Senior Security Engineer.',
     siteUrl: 'https://www.elusivecode.net/',
     social: {
       twitter: 'MLParker1'
