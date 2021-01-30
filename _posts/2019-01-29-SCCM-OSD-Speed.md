@@ -1,6 +1,7 @@
 ---
 title:  "Speeding up System Center OS Deployment"
 date:   2019-01-29
+tags: SCCM Imaging Bit9 Automation
 categories: Networking
 layout: post
 ---

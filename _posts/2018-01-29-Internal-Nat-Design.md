@@ -2,6 +2,7 @@
 title:  "Internal Nat Design"
 date:   2018-01-29
 categories: Networking
+tags: Networking Cisco Proxy-ARP
 layout: post
 ---
 &nbsp;&nbsp;&nbsp;&nbsp;Time has come where a service that we run is being moved to a remote (read not ours) datacenter. We do not know all the internal workings of it as it is a Mainframe Z9, in which we no longer have any programmers on staff. We are having the services brought up on some one else’s cloud due to not being able to properly provide disaster recovery.

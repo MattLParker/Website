@@ -2,6 +2,7 @@
 title:  "Netwrix Audit Scripting"
 date:   2019-03-12
 categories:  "Security"
+tags: Netwrix Registry Automation
 layout: post
 
 ---

@@ -2,6 +2,7 @@
 title:  "Skype for Business Desktop sharing disconnect."
 date:   2018-04-14
 categories: Networking
+tags: Skype Cisco ASA
 layout: post
 ---
 &nbsp;&nbsp;&nbsp;&nbsp;During testing of using Skype for business for Audio/Video conferencing all was going well, until enabling desktop sharing. When ever anyone in the group (all on LAN to each other) we would start a storm of disconnects from Skype.
