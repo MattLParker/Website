@@ -2,7 +2,7 @@
 title:  "Speeding up System Center OS Deployment"
 date:   2019-01-29
 tags: SCCM Imaging Bit9 Automation
-categories: Networking
+categories: Sysadmin Automation
 layout: post
 ---
 &nbsp;&nbsp;&nbsp;&nbsp;Some of the goals of the exercise was to add some automation to a task sequence and also speed up the results so that to not hinder the technicians that do the deployments.
