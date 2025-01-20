@@ -1,6 +1,7 @@
 ---
 title:  "Speeding up System Center OS Deployment"
 date:   2019-01-29
+author: matt
 tags: SCCM Imaging Bit9 Automation
 categories: Sysadmin Automation
 layout: post
@@ -15,12 +16,12 @@ layout: post
 
 Below is a chart of timings.
 
-| Options | Time |
-|------------------------------|----------------|
-| No wipe no bit9 | 45 Minutes |
-| Wipe, No Bit9 | 1:45 |
-| No Wipe with Bit9 | 1:07 |
-| Wipe, Bit9  | 2:26 |
+| Options                      | Time           |
+| ---------------------------- | -------------- |
+| No wipe no bit9              | 45 Minutes     |
+| Wipe, No Bit9                | 1:45           |
+| No Wipe with Bit9            | 1:07           |
+| Wipe, Bit9                   | 2:26           |
 | Bit9, Auto wait, wipe at end | 1:00 to usable |
 {:.mbtablestyle}
 
@@ -29,7 +30,7 @@ Below is a chart of timings.
 ```Powershell
     <#
 .SYNOPSIS
-A script to run immediately after deploying the Bit9 Carbon Black Protect Agent during OS deployment 
+A script to run immediately after deploying the Bit9 Carbon Black Protect Agent during OS deployment
 and wait for it to complete the initial cache before proceeding.
 #>
 

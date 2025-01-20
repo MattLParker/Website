@@ -1,0 +1,2 @@
+Preferred-Languages: en
+Policy: www, offlimit, all other no DOS.

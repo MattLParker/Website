@@ -2,6 +2,7 @@
 title:  "Internal Nat Design"
 date:   2018-01-29
 categories: Networking
+author: matt
 tags: Networking Cisco Proxy-ARP
 layout: post
 ---
