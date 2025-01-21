@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 
 
-git_source(:github) { |MattLParker/Website| "https://github.com/#{repo_name}" }
+git_source(:github) { |Website| "https://github.com/#{repo_name}" }
 
 gemspec
 
