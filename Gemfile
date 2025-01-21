@@ -18,3 +18,7 @@ gem "base64"
 gem "csv"
 
 gem "jekyll", "~> 4.3"
+
+gem "materialize", "~> 0.4.5"
+
+gem "stringio", "~> 3.1"
