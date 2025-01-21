@@ -2,9 +2,6 @@
 
 source "https://rubygems.org"
 
-
-git_source(:github) { |Website| "https://github.com/#{repo_name}" }
-
 gemspec
 
 gem "html-proofer", "~> 5.0", group: :test
