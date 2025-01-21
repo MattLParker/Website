@@ -17,4 +17,4 @@ gem "base64"
 
 gem "csv"
 
-gem "jekyll", "~> 3.5"
+gem "jekyll", "~> 4.3"
