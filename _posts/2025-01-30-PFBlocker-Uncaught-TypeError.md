@@ -1,5 +1,5 @@
 ---
-title:  Solving the PFBlockerNG PHP Error in pfSense: 'Uncaught TypeError: Cannot access offset of type string on string'
+title:  "Solving the PFBlockerNG PHP Error in pfSense: 'Uncaught TypeError: Cannot access offset of type string on string'"
 date:   2025-01-30
 author: matt
 tags: PFSense PFBlocker
